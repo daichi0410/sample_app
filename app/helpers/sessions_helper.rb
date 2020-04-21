@@ -1,6 +1,5 @@
 module SessionsHelper
 
-  # 渡されたユーザーでログインする
   def log_in(user)
     session[:user_id] = user.id
   end
@@ -42,5 +41,5 @@ module SessionsHelper
     forget(current_user)
     session.delete(:user_id)
     @current_user = nil
-  endf
+  end
 end

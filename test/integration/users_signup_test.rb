@@ -3,7 +3,8 @@ require 'test_helper'
 class UsersSignupTest < ActionDispatch::IntegrationTest
 
   def setup
-    ActionMailer::Base.deliveries.clear
+    @user = users(:michael)
+    @other_user = users(:archer)
   end
 
   test "invalid signup information" do
@@ -47,4 +48,13 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert is_logged_in?
   end
   
+  test "should redirect following when not logged in" do
+    get following_user_path(@user)
+    assert_redirected_to login_url
+  end
+
+  test "should redirect followers when not logged in" do
+    get followers_user_path(@user)
+    assert_redirected_to login_url
+  end
 end
